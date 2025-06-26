@@ -9,7 +9,7 @@ app.use(cors());
 const config = {
   user: 'ruurd',
   password: 'Ruburubu01',
-  server: '',
+  server: 'fixserver01.database.windows.net',
   database: 'FIXDB',
   options: {
     encrypt: true,
