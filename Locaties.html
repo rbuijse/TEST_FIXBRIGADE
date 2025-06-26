@@ -35,40 +35,81 @@
     </tbody>
   </table>
 
-<script>
-  fetch('https://vragenlijst-api.onrender.com/data')
-    .then(response => {
-      // 🔍 Log statuscode (bijv. 200 of 500)
-      console.log('Statuscode:', response.status);
+  <!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Vragenlijst data</title>
+  <style>
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
 
-      // 🔍 Log response headers (zoals CORS-informatie)
-      for (const [key, value] of response.headers.entries()) {
-        console.log(`Header: ${key} = ${value}`);
-      }
+  <h2 style="text-align:center;">Lijst van Locaties</h2>
+  <table id="LocatieTabel">
+    <thead>
+      <tr>
+        <th>Gemeente</th>
+        <th>Huishoudens gefixed</th>
+        <th>Tochtstrip aangebracht</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rijen worden hier toegevoegd -->
+    </tbody>
+  </table>
 
-      return response.json(); // Parse JSON
-    })
-    .then(data => {
-      // 🔍 Log de daadwerkelijke JSON-data
-      console.log('Ontvangen JSON-data:', data);
+  <!-- 👇 Voeg dit <script> toe onderaan de <body> -->
+  <script>
+    fetch('https://vragenlijst-api.onrender.com/data')
+      .then(response => response.json())
+      .then(data => {
+        // ✅ Log de hele data-array
+        console.log('Gehele JSON-data:', data);
 
-      const tbody = document.querySelector('#LocatieTabel tbody');
-      data.forEach(Locatie => {
-        const rij = document.createElement('tr');
-        rij.innerHTML = `
-          <td>${Locatie.GEMEENTE}</td>
-          <td>${Locatie.HUISHOUDENS_FIXED}</td>
-          <td>${Locatie.TOCHTSTRIP_AANGEBRACHT}</td>
-        `;
-        tbody.appendChild(rij);
+        // ✅ Log elke rij afzonderlijk
+        data.forEach((item, index) => {
+          console.log(`Rij ${index}:`, item);
+        });
+
+        // 🛠️ Plaats hier straks je rendering-code
+        const tbody = document.querySelector('#LocatieTabel tbody');
+
+        // ❌ Let op: deze veldnamen zijn mogelijk fout (en geven undefined)
+        // ✅ Pas ze straks aan nadat je de juiste namen ziet in de console
+        data.forEach(Locatie => {
+          const rij = document.createElement('tr');
+          rij.innerHTML = `
+            <td>${Locatie.GEMEENTE}</td>
+            <td>${Locatie.HUISHOUDENS_FIXED}</td>
+            <td>${Locatie.TOCHTSTRIP_AANGEBRACHT}</td>
+          `;
+          tbody.appendChild(rij);
+        });
+      })
+      .catch(error => {
+        console.error('Fout bij het ophalen van data:', error);
+        const tbody = document.querySelector('#LocatieTabel tbody');
+        tbody.innerHTML = `<tr><td colspan="3">Fout bij laden van data</td></tr>`;
       });
-    })
-    .catch(error => {
-      console.error('❌ Fout bij het ophalen van data:', error);
-      const tbody = document.querySelector('#LocatieTabel tbody');
-      tbody.innerHTML = `<tr><td colspan="3">Fout bij laden van data</td></tr>`;
-    });
-</script>
+  </script>
+
+</body>
+</html>
+
 
 
 </body>
