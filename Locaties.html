@@ -93,9 +93,9 @@
         data.forEach(Locatie => {
           const rij = document.createElement('tr');
           rij.innerHTML = `
-            <td>${Locatie.GEMEENTE}</td>
-            <td>${Locatie.HUISHOUDENS_FIXED}</td>
-            <td>${Locatie.TOCHTSTRIP_AANGEBRACHT}</td>
+            <td>${Locatie.gemeente}</td>
+            <td>${Locatie.huishoudens_fixed}</td>
+            <td>${Locatie.tochtstrip_aangebracht}</td>
           `;
           tbody.appendChild(rij);
         });
