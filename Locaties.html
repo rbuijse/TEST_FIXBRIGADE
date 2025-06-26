@@ -35,29 +35,41 @@
     </tbody>
   </table>
 
-  <script>
-    fetch('https://vragenlijst-api.onrender.com/data')
-      .then(response => response.json())
-      .then(data => {
-        const tbody = document.querySelector('#LocatieTabel tbody');
-        data.forEach(Locatie => {
-          const rij = document.createElement('tr');
-          
-          rij.innerHTML = `
-            <td>${Locatie.GEMEENTE}</td>
-            <td>${Locatie.HUISHOUDENS_FIXED}</td>
-            <td>${Locatie.TOCHTSTRIP_AANGEBRACHT}</td>
-          `;
-          
-          tbody.appendChild(rij);
-        });
-      })
-      .catch(error => {
-        console.error('Fout bij het ophalen van data:', error);
-        const tbody = document.querySelector('#LocatieTabel tbody');
-        tbody.innerHTML = `<tr><td colspan="3">Fout bij laden van data</td></tr>`;
+<script>
+  fetch('https://vragenlijst-api.onrender.com/data')
+    .then(response => {
+      // 🔍 Log statuscode (bijv. 200 of 500)
+      console.log('Statuscode:', response.status);
+
+      // 🔍 Log response headers (zoals CORS-informatie)
+      for (const [key, value] of response.headers.entries()) {
+        console.log(`Header: ${key} = ${value}`);
+      }
+
+      return response.json(); // Parse JSON
+    })
+    .then(data => {
+      // 🔍 Log de daadwerkelijke JSON-data
+      console.log('Ontvangen JSON-data:', data);
+
+      const tbody = document.querySelector('#LocatieTabel tbody');
+      data.forEach(Locatie => {
+        const rij = document.createElement('tr');
+        rij.innerHTML = `
+          <td>${Locatie.GEMEENTE}</td>
+          <td>${Locatie.HUISHOUDENS_FIXED}</td>
+          <td>${Locatie.TOCHTSTRIP_AANGEBRACHT}</td>
+        `;
+        tbody.appendChild(rij);
       });
-  </script>
+    })
+    .catch(error => {
+      console.error('❌ Fout bij het ophalen van data:', error);
+      const tbody = document.querySelector('#LocatieTabel tbody');
+      tbody.innerHTML = `<tr><td colspan="3">Fout bij laden van data</td></tr>`;
+    });
+</script>
+
 
 </body>
 </html>
