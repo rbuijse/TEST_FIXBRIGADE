@@ -17,6 +17,11 @@ const config = {
   }
 };
 
+app.get('/', (req, res) => {
+  res.send('API is live! Gebruik /data om gegevens op te halen.');
+});
+
+
 app.get('/data', async (req, res) => {
   try {
     await sql.connect(config);
