@@ -8,7 +8,7 @@ app.use(cors());
 // ✅ Vul deze waarden in met jouw eigen info:
 const config = {
   user: process.env.DB_USER,
-  password: 'Ruburubu01',
+  password: process.env.DB_PASSWORD,
   server: 'fixserver01.database.windows.net',
   database: 'FIXDB',
   options: {
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 app.get('/data', async (req, res) => {
   try {
     await sql.connect(config);
-    const result = await sql.query`SELECT gemeente FROM dbo.vragenlijst_2025_Q1`;
+    const result = await sql.query`SELECT gemeente, huishoudens_fixed, tochtstrip_aangebracht FROM dbo.vragenlijst_2025_Q1`;
     res.json(result.recordset);
   } catch (err) {
     console.error(err);
