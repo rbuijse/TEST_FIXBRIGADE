@@ -9,8 +9,8 @@ app.use(cors());
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: 'fixserver01.database.windows.net',
-  database: 'FIXDB',
+  server: process.env.DB_SERVER,
+  database: process.DB_DATABASE,
   options: {
     encrypt: true,
     enableArithAbort: true
