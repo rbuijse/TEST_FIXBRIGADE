@@ -26,8 +26,11 @@
     <thead>
       <tr>
         <th>Gemeente</th>
-        <th>Huishoudens gefixed</th>
-        <th>Tochtstrip aangebracht</th>
+        <th# Fixteams</th>
+        <th># Huishoudens gefixed</th>
+        <th>Hoe vaak bezoeken</th>
+        <th# Betaalde werknemers</th>
+        <th># FTE</th>
       </tr>
     </thead>
     <tbody>
@@ -44,9 +47,12 @@
           const rij = document.createElement('tr');
           
           rij.innerHTML = `
-            <td>${Locatie.gemeente}</td>
-            <td>${Locatie.huishoudens_fixed}</td>
-            <td>${Locatie.tochtstrip_aangebracht}</td>
+            <td>${Locatie.GEMEENTE}</td>
+            <td>${Locatie.FIXTEAMS}</td>
+            <td>${Locatie.HUISHOUDENS_FIXED}</td>
+            <td>${Locatie.HOEVAAK_LANGS}</td>
+            <td>${Locatie.BETAALDE_WERKNEMERS}</td>
+            <td>${Locatie.FTE}</td>
           `;
           
           tbody.appendChild(rij);
