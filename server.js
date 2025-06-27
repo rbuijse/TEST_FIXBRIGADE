@@ -24,7 +24,10 @@ app.get('/', (req, res) => {
 app.get('/data', async (req, res) => {
   try {
     await sql.connect(config);
-    const result = await sql.query`SELECT gemeente, huishoudens_fixed, tochtstrip_aangebracht FROM dbo.vragenlijst_2025_Q1`;
+    const result = await sql.query`SELECT ID, GEMEENTE, FIXTEAMS, HUISHOUDENS_FIXED, HOEVAAK_LANGS, BETAALDE_WERKNEMERS, FTE, LEERLING_FIXERS, LEERWERK
+, LEERWERK_DOORSTROOM, DOORSTROOM_NAAR, VRIJWILLIGERS, VRIJWILLIGERSUREN, TOCHTSTRIP_AANGEBRACHT
+, FOLIE_AANGEBRACHT, LEDLAMPEN
+FROM FIXDB.dbo.VRAGENLIJST_2025_Q1;`;
     res.json(result.recordset);
   } catch (err) {
     console.error(err);
